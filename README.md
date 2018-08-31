@@ -105,7 +105,7 @@ http://192.168.99.101:80/
 `docker stack ps getstartedlab # show containers in stack`
 `docker service ls`
 
-`docker-machine env myvm1 #Connect shell to mymv1` 
+`docker-machine env myvm1 #Connect shell to mymv1`
 `eval $(docker-machine env myvm1) # Mac command to connect shell to myvm1`
 `eval $("C:\Program Files\Docker Toolbox\docker-machine.exe" env myvm1)`
 
