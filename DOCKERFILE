@@ -1,20 +1,28 @@
 # Use an official Python runtime as a parent image
-FROM python:3.6-alpine
+FROM python:3-alpine as base
 
-# Set the working directory to /app
-WORKDIR /app
+FROM base as builder
 
-# Copy the current directory contents into the container at /app
-ADD . /app
+RUN mkdir /install
+WORKDIR /install
+
+COPY requirements.txt /requirements.txt
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install --trusted-host pypi.python.org --install-option="--prefix=/install" -r /requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+FROM base
+
+COPY --from=builder /install /usr/local
+COPY . /app
+
+WORKDIR /app
 
 # Define environment variable
 ENV NAME David
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]
