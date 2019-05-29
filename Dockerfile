@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3-alpine as base
+FROM python:3.6-alpine as base
 
 FROM base as builder
 
